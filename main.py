@@ -21,39 +21,72 @@ def get_temp(tmp, scara1, scara2):
         return (tmp - 32) // 1.8000
     elif scara1 == 'F' and scara2 == 'K':
         return tmp + 459.67 // (9 // 5)
+    elif scara1 == 'F' and scara2 == 'F' or scara1 == 'C' and scara2 == 'C' or scara1 == 'K' and scara2 == 'K':
+        return tmp
 
 def test_get_temp():
-    print("Adaugati o temperatura, scara temperaturi si scara in care vreti sa convertiti temperatura")
-    tmp = int(input("Dati un numar. "))
-    scara1 = input("Scrie-ti unitatea de masura a temperaturii. ")
-    scara2 = input("Scrie-ti unitatea de masura in care doriti sa comvertiti temperatura. ")
-    result = get_temp(tmp, scara1, scara2)
-
+    """
+    Testeaza daca funtia get_temp functioneaza
+    """
     assert get_temp(237, 'C', 'K') == 510.15
-    print(result)
-print(test_get_temp())
-def cmmdc(Var1, Var2):
-    res = Var1 % Var2
-    while res:
-        Var1 = Var2
-        Var2 = res
-        res = Var1 % Var2
-    return Var2
-
-def cmmmc(Var1, Var2):
-    return Var1 * Var2 // cmmdc(Var1, Var2)
+    assert get_temp(345, 'C', 'K') == 618.15
+    assert get_temp(78, 'F', 'C') == 25.0
+test_get_temp()
 
 def get_cmmmc(list):
+    """
+    Acest program caluleaza cel mai mic multiplu comun a n numere date
+    :param list: integer
+    :return: integer (Returneaza cel mai mic multiplu comun)
+    """
     aux = 1
     for index in list:
-        aux = cmmmc(index, aux)
+        copie1 = index
+        copie2 = aux
+        res = copie1 % copie2
+        while res:
+            copie1 = copie2
+            copie2 = res
+            res = copie1 % copie2
+        aux = index * aux // copie2
     return aux
 
 def test_get_cmmmc():
-    List = []
-    number = int(input("Introduceti numarul elementelor"))
-    for index in range(0, number):
-        Elem = int(input())
-        List.append(Elem)
-    print(get_cmmmc(List))
-print(test_get_cmmmc())
+    """
+    Testeaza daca funtia get_cmmmc functioneaza
+    """
+    assert(get_cmmmc([1, 2, 3, 4, 5])) == 60
+    assert(get_cmmmc([1, 5, 6, 3])) == 30
+test_get_cmmmc()
+def main():
+    """
+    Aceasta este interfata utilizatorului
+    """
+    problema = int(input("Alege problema dorita: 13 sau 14 "))
+    if problema == 13:
+        gasit = True
+        while gasit == True:
+            print("Adaugati o temperatura, scara temperaturi si scara in care vreti sa convertiti temperatura")
+            tmp = int(input("Dati o temperatura. "))
+            scara1 = input("Scrie-ti unitatea de masura a temperaturii. ")
+            scara2 = input("Scrie-ti unitatea de masura in care doriti sa comvertiti temperatura. ")
+            result = get_temp(tmp, scara1, scara2)
+            print(result)
+            continua = input("Continuati? DA sau NU ")
+            if continua == 'NU':
+                gasit = False
+                main()
+    elif problema == 14:
+        gasit = True
+        while gasit:
+            List = []
+            number = int(input("Introduceti numarul elementelor"))
+            for index in range(0, number):
+                Elem = int(input())
+                List.append(Elem)
+            print(get_cmmmc(List))
+            continua = input("Continuati? DA sau NU ")
+            if continua == 'NU':
+                gasit = False
+                main()
+print(main())
