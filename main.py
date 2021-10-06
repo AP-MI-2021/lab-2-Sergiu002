@@ -8,7 +8,6 @@ def get_temp(tmp, scara1, scara2):
     :param scara2: string
     :return: float (returneaza temepratura tmp convertita din scara1 in scara2)
     """
-
     if scara1 == 'C' and scara2 == 'F':
         return 1.8000 * tmp + 32
     elif scara1 == 'C' and scara2 == 'K':
@@ -75,14 +74,14 @@ def is_palindrome(var1):
         return True
     else:
         return False
-def test_is_palindrom():
+def test_is_palindrome():
     """
     Testeaza daca functia is_palindrom funtioneaza
     """
     assert(is_palindrome(121)) is True
     assert(is_palindrome(123)) is False
     assert(is_palindrome(565565)) is True
-test_is_palindrom()
+test_is_palindrome()
 def main():
     """
     Aceasta este interfata utilizatorului
@@ -92,7 +91,7 @@ def main():
         gasit = True
         while gasit == True:
             print("Adaugati o temperatura, scara temperaturi si scara in care vreti sa convertiti temperatura")
-            tmp = int(input("Dati o temperatura. "))
+            tmp = float(input("Dati o temperatura. "))
             scara1 = input("Scrie-ti unitatea de masura a temperaturii. ")
             scara2 = input("Scrie-ti unitatea de masura in care doriti sa comvertiti temperatura. ")
             result = get_temp(tmp, scara1, scara2)
