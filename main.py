@@ -58,11 +58,36 @@ def test_get_cmmmc():
     assert(get_cmmmc([1, 2, 3, 4, 5])) == 60
     assert(get_cmmmc([1, 5, 6, 3])) == 30
 test_get_cmmmc()
+
+def is_palindrome(var1):
+    """
+    Testeaza daca var1 este palindrom
+    :param var1: integer
+    :return: bool (returneaza True daca var1 este palindrom si False daca var1 nu este palindrom
+    """
+    aux  = var1
+    oglindit = 0
+    while aux:
+        cif = aux % 10
+        oglindit = oglindit * 10 + cif
+        aux = aux // 10
+    if oglindit == var1:
+        return True
+    else:
+        return False
+def test_is_palindrom():
+    """
+    Testeaza daca functia is_palindrom funtioneaza
+    """
+    assert(is_palindrome(121)) is True
+    assert(is_palindrome(123)) is False
+    assert(is_palindrome(565565)) is True
+test_is_palindrom()
 def main():
     """
     Aceasta este interfata utilizatorului
     """
-    problema = int(input("Alege problema dorita: 13 sau 14 "))
+    problema = int(input("Alege problema dorita: 5, 13 sau 14 "))
     if problema == 13:
         gasit = True
         while gasit == True:
@@ -85,6 +110,15 @@ def main():
                 Elem = int(input())
                 List.append(Elem)
             print(get_cmmmc(List))
+            continua = input("Continuati? DA sau NU ")
+            if continua == 'NU':
+                gasit = False
+                main()
+    elif problema == 5:
+        gasit = True
+        while gasit:
+            numar = int(input("Introduceti un numar: "))
+            print(is_palindrome(numar))
             continua = input("Continuati? DA sau NU ")
             if continua == 'NU':
                 gasit = False
